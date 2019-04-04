@@ -141,8 +141,8 @@ server_rv <- function(input, output) {
       host_summary <- rownames_to_column(host_summary)
       colnames(host_summary) <- c("Description", "Value")
       
-      host_sub <- host_sub[, c("Host", "Vendor", "Model", "Datacenter", "CPU_Model", "Memory", "n_CPU", "n_vCPU")]
-      colnames(host_sub) <- c("Host", "Vendor", "Model", "Datacenter", "CPU Model", "Memory [GB]", "# Sockets", "# vCPUs")
+      host_sub <- host_sub[, c("Host", "Vendor", "Model", "Datacenter", "CPU_Model", "Memory", "n_CPU", "Cores_per_CPU", "n_Cores", "n_vCPU")]
+      colnames(host_sub) <- c("Host", "Vendor", "Model", "Datacenter", "CPU Model", "Memory [GB]", "# Sockets", "Cores per Socket", "Total Cores", "# vCPUs")
     }
     #plot_Host
     

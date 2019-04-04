@@ -17,19 +17,19 @@ ui <- dashboardPage(
       tabItem(tabName = "tab_rv",
               fluidPage(theme = "custom.css",
                         # Application title.
-                        titlePanel("RV Tools"),
+                        titlePanel("RV Tools Report per Var Group S.p.A."),
                         shinyjs::useShinyjs(),
                         
                         sidebarLayout(
                           sidebarPanel(
                             
-                            textInput("title_rv", "Title", "Report Title"),
+                            textInput("title_rv", "Titolo", "Titolo del report"),
                             
-                            textInput("author_rv", "Author", "Author of the Report"),
+                            textInput("author_rv", "Autore", "Autore del report"),
                             
-                            fileInput("file_rv", "File input", accept=c('.xlsx', '.xls', '.csv')),
+                            fileInput("file_rv", "File Input", accept=c('.xlsx', '.xls', '.csv')),
                             
-                            actionButton("Generate_rv","Generate Report")
+                            actionButton("Generate_rv","Genera report")
                           ),
                           
                           # Show a summary of the dataset and an HTML table with the
@@ -42,7 +42,7 @@ ui <- dashboardPage(
                               # using iframe along with tags() within tab to display pdf with scroll, height and width could be adjusted
                               tabPanel("Report", 
                                        uiOutput("pdfview_rv")),
-                              tabPanel("Instructions", includeMarkdown("instructions_rv.md"))
+                              tabPanel("Istruzioni", includeMarkdown("instructions_rv.md"))
                             ),
                             plotOutput("progress_bar_rv", height = 1,width = 1)
                           )
