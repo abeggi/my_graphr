@@ -19,7 +19,7 @@ server_rv <- function(input, output) {
     setProgress(0.1, message = "Importing Data")
     
     #browser()
-    file1 <- input$file_rv
+    file1<- input$file_rv
     ext <- tools::file_ext(file1$name)
     file.rename(file1$datapath, paste(file1$datapath, ext, sep = "."))
     # check which file ending used
@@ -58,9 +58,9 @@ server_rv <- function(input, output) {
     
     # if host information exist, rename columns, adjust Memory to GB
     if(is.null(overview_host)==FALSE){
-      host_sub <- overview_host[, c("Host", "Datacenter", "CPU.Model", "X..VMs", "X..CPU", "Cores.per.CPU", "X..Cores", "X..Memory", "X..vCPUs", "ESX.Version")]
+      host_sub <- overview_host[, c("Host", "Vendor", "Model", "Datacenter", "CPU.Model", "X..VMs", "X..CPU", "Cores.per.CPU", "X..Cores", "X..Memory", "X..vCPUs", "ESX.Version")]
       
-      colnames(host_sub) <- c("Host", "Datacenter", "CPU_Model", "n_VMs", "n_CPU", "Cores_per_CPU", "n_Cores", "Memory", "n_vCPU", "ESX_Version")
+      colnames(host_sub) <- c("Host", "Vendor", "Model", "Datacenter", "CPU_Model", "n_VMs", "n_CPU", "Cores_per_CPU", "n_Cores", "Memory", "n_vCPU", "ESX_Version")
       host_sub <- na.omit(host_sub)
       host_sub <- host_sub %>%
         mutate(Memory = round(Memory /1000, 1)) %>%
@@ -141,17 +141,17 @@ server_rv <- function(input, output) {
       host_summary <- rownames_to_column(host_summary)
       colnames(host_summary) <- c("Description", "Value")
       
-      host_sub <- host_sub[, c("Host", "Datacenter", "CPU_Model", "Memory", "n_CPU", "n_vCPU")]
-      colnames(host_sub) <- c("Host", "Datacenter", "CPU Model", "Memory [GB]", "# Sockets", "# vCPUs")
+      host_sub <- host_sub[, c("Host", "Vendor", "Model", "Datacenter", "CPU_Model", "Memory", "n_CPU", "n_vCPU")]
+      colnames(host_sub) <- c("Host", "Vendor", "Model", "Datacenter", "CPU Model", "Memory [GB]", "# Sockets", "# vCPUs")
     }
     #plot_Host
     
     # Network Plot: VM's per Datacenter
-    # get new vertices and label
+    ## get new vertices and label
     net_dc <- unique(data_sub$Datacenter)
     new_vertices <- get_vertices(net_dc)
     network_label <- as.vector(net_dc)
-    # plot graph
+    ## plot graph
     tmp <- data_sub[, c("Datacenter", "VM")]
     tmp.g <- graph.data.frame(d = tmp, directed = FALSE)
     tmp.g <- add_vertices(tmp.g, length(net_dc), attr=new_vertices)
@@ -159,11 +159,11 @@ server_rv <- function(input, output) {
     #plot_network_VM
     
     # Network Plot: VM's per Host
-    # get new vertices and label
+    ## get new vertices and label
     net_host <- unique(data_sub$Host)
     new_vertices <- get_vertices(net_host)
     network_label <- as.vector(net_host)
-    # plot graph
+    ## plot graph
     tmp <- data_sub[, c("Host", "VM")]
     tmp.g <- graph.data.frame(d = tmp, directed = FALSE)
     tmp.g <- add_vertices(tmp.g, length(net_host), attr=new_vertices)
@@ -171,17 +171,17 @@ server_rv <- function(input, output) {
     #plot_network_Host
     
     # Network Plot: VM's per Network
-    # get new vertices and label
+    ## get new vertices and label
     net_network <- unique(data_sub$Network_1)
     new_vertices <- get_vertices(net_network)
     network_label <- as.vector(net_network)
-    # plot graph
+    ## plot graph
     tmp <- data_sub[, c("Network_1", "VM")]
     tmp.g <- graph.data.frame(d = tmp, directed = FALSE)
     tmp.g <- add_vertices(tmp.g, length(net_network), attr=new_vertices)
     plot_network_Network <- ggnet2(tmp.g, color = "steelblue", alpha = 0.75, size = 5, edge.alpha = 0.5, edge.color = "grey", label.size = 4, label.alpha = 1, label.color = "black", label = network_label)
     #plot_network_Network
-
+    ### end: waiting on igraph issue to be fixed ###
 
     # progress
     setProgress(0.8, message = "Generating Slides")
@@ -261,6 +261,8 @@ server_rv <- function(input, output) {
     slidePlot(plot_network_Host, "Cluster: VM's per Host")
     
     slidePlot(plot_network_Network, "Cluster: VM's per Network")
+    
+    ### end: waiting on igraph issue to be fixed ###
     
     # final slide
     slideLast()
