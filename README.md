@@ -1,8 +1,8 @@
 # graphR.
 <a href="https://www.vargroup.it"><img src = "graphr/www/logo_var_group.png" align="left"></a>
-<br>
+-------------------
 Modified by Andrea Beggi for Var Group.
-
+-------------------
 THIS IS NOT THE ORIGINAL PROJECT. THE ORIGINAL PROJECT IS DESCRIBED BELOW. 
 -------------------------------------------------------------------------
 <a href="https://www.graphr.de"><img src = "graphr/www/graphR_logo.png" width = "200" align="left"></a> 
