@@ -3,6 +3,8 @@ FROM centos:7
 # Installing Cent OS packages
 RUN yum -y update && yum -y install \
 	epel-release \
+	mc \
+	nano \
 	java-1.8.0-openjdk \
 	java-1.8.0-openjdk-devel \
 	libapreq2-devel \
