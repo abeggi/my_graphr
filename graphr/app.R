@@ -17,7 +17,7 @@ ui <- dashboardPage(
       tabItem(tabName = "tab_rv",
               fluidPage(theme = "custom.css",
                         # Application title.
-                        titlePanel("RV Tools Report per Var Group S.p.A."),
+                        titlePanel("RV Tools Report per Var Group S.p.A. v.8"),
                         shinyjs::useShinyjs(),
                         
                         sidebarLayout(

@@ -58,9 +58,9 @@ server_rv <- function(input, output) {
     
     # if host information exist, rename columns, adjust Memory to GB
     if(is.null(overview_host)==FALSE){
-      host_sub <- overview_host[, c("Host", "Vendor", "Model", "Datacenter", "CPU.Model", "X..VMs", "X..CPU", "Cores.per.CPU", "X..Cores", "X..Memory", "X..vCPUs", "ESX.Version")]
+      host_sub <- overview_host[, c("Memory.usage.percentage", "CPU.usage.percentage", "Host", "Vendor", "Model", "Datacenter", "CPU.Model", "X..VMs", "X..CPU", "Cores.per.CPU", "X..Cores", "X..Memory", "X..vCPUs", "ESX.Version")]
       
-      colnames(host_sub) <- c("Host", "Vendor", "Model", "Datacenter", "CPU_Model", "n_VMs", "n_CPU", "Cores_per_CPU", "n_Cores", "Memory", "n_vCPU", "ESX_Version")
+      colnames(host_sub) <- c("Memory_perc", "CPU_perc", "Host", "Vendor", "Model", "Datacenter", "CPU_Model", "n_VMs", "n_CPU", "Cores_per_CPU", "n_Cores", "Memory", "n_vCPU", "ESX_Version")
       host_sub <- na.omit(host_sub)
       host_sub <- host_sub %>%
         mutate(Memory = round(Memory /1000, 1)) %>%
@@ -141,8 +141,8 @@ server_rv <- function(input, output) {
       host_summary <- rownames_to_column(host_summary)
       colnames(host_summary) <- c("Description", "Value")
       
-      host_sub <- host_sub[, c("Host", "Vendor", "Model", "Datacenter", "CPU_Model", "Memory", "n_CPU", "Cores_per_CPU", "n_Cores", "n_vCPU")]
-      colnames(host_sub) <- c("Host", "Vendor", "Model", "Datacenter", "CPU Model", "Memory [GB]", "# Sockets", "Cores per Socket", "Total Cores", "# vCPUs")
+      host_sub <- host_sub[, c("Datacenter", "Host", "Vendor", "Model", "CPU_Model", "n_CPU", "Cores_per_CPU", "n_Cores", "Memory", "CPU_perc", "Memory_perc")]
+      colnames(host_sub) <- c("Datacenter", "Host", "Vendor", "Model", "CPU Model", "# Sockets", "Cores per socket", "Total Cores", "Memory [GB]", "CPU usage percentage", "Memory usage percentage")
     }
     #plot_Host
     
